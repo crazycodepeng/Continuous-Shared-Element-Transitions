@@ -31,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
    * Holds the current image position to be shared between the grid and the pager fragments. This
    * position updated when a grid item is clicked, or when paging the pager.
    *
+   * 保持当前图像位置在grid和fragment之间共享。 当点击一个grid item时，或者在fragment切换分页更新此位置。
+   *
    * In this demo app, the position always points to an image index at the {@link
-   * com.google.samples.gridtopager.adapter.ImageData} class.
+   * liup.code.element.adapter.ImageData} class.
+   *
+   * 图片地址
    */
   public static int currentPosition;
   private static final String KEY_CURRENT_POSITION = "com.google.samples.gridtopager.key.currentPosition";
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     if (savedInstanceState != null) {
       currentPosition = savedInstanceState.getInt(KEY_CURRENT_POSITION, 0);
       // Return here to prevent adding additional GridFragments when changing orientation.
+      // 这里返回以防止在改变方向时添加额外的GridFragments。
       return;
     }
     FragmentManager fragmentManager = getSupportFragmentManager();

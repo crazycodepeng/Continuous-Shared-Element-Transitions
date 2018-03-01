@@ -35,6 +35,7 @@ import liup.code.element.adapter.ImagePagerAdapter;
 
 /**
  * A fragment for displaying a pager of images.
+ * 显示image的fragment
  */
 public class ImagePagerFragment extends Fragment {
 
@@ -48,6 +49,7 @@ public class ImagePagerFragment extends Fragment {
     viewPager.setAdapter(new ImagePagerAdapter(this));
     // Set the current position and add a listener that will update the selection coordinator when
     // paging the images.
+    // 设置当前位置并添加一个侦听器，在分页图像时将更新选择协调器。
     viewPager.setCurrentItem(MainActivity.currentPosition);
     viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
       @Override
@@ -59,6 +61,7 @@ public class ImagePagerFragment extends Fragment {
     prepareSharedElementTransition();
 
     // Avoid a postponeEnterTransition on orientation change, and postpone only of first creation.
+    // 在方向更改上避免使用postponeEnterTransition，首次创建时推迟。
     if (savedInstanceState == null) {
       postponeEnterTransition();
     }
@@ -68,6 +71,8 @@ public class ImagePagerFragment extends Fragment {
 
   /**
    * Prepares the shared element transition from and back to the grid fragment.
+   *
+   * 准备共享元素转换并返回到grid的fragment。
    */
   private void prepareSharedElementTransition() {
     Transition transition =
@@ -76,6 +81,7 @@ public class ImagePagerFragment extends Fragment {
     setSharedElementEnterTransition(transition);
 
     // A similar mapping is set at the GridFragment with a setExitSharedElementCallback.
+    // 使用setExitSharedElementCallback在GridFragment中设置一个类似的映射。
     setEnterSharedElementCallback(
         new SharedElementCallback() {
           @Override
@@ -84,6 +90,10 @@ public class ImagePagerFragment extends Fragment {
             // visible). To locate the fragment, call instantiateItem with the selection position.
             // At this stage, the method will simply return the fragment at the position and will
             // not create a new one.
+
+            // 在主要fragment（当前可见的ImageFragment）上找到图像视图。
+            // 要查找fragment，请使用选择位置调用instantiateItem。
+            // 在这个fragment，该方法将简单地在该位置返回fragment，并且不会创建新fragment。
             Fragment currentFragment = (Fragment) viewPager.getAdapter()
                 .instantiateItem(viewPager, MainActivity.currentPosition);
             View view = currentFragment.getView();
@@ -92,6 +102,7 @@ public class ImagePagerFragment extends Fragment {
             }
 
             // Map the first shared element name to the child ImageView.
+            // 将第一个共享元素名称映射到子ImageView。
             sharedElements.put(names.get(0), view.findViewById(R.id.image));
           }
         });

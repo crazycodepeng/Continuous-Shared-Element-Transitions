@@ -37,6 +37,7 @@ import liup.code.element.adapter.GridAdapter;
 
 /**
  * A fragment for displaying a grid of images.
+ * 用于显示图像网格的片段。
  */
 public class GridFragment extends Fragment {
 
@@ -64,6 +65,8 @@ public class GridFragment extends Fragment {
   /**
    * Scrolls the recycler view to show the last viewed item in the grid. This is important when
    * navigating back from the grid.
+   *
+   * 滚动回收站视图以显示网格中最近查看的项目。 从网格返回时这很重要。
    */
   private void scrollToPosition() {
     recyclerView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
@@ -82,6 +85,7 @@ public class GridFragment extends Fragment {
         View viewAtPosition = layoutManager.findViewByPosition(MainActivity.currentPosition);
         // Scroll to position if the view for the current position is null (not currently part of
         // layout manager children), or it's not completely visible.
+        // 如果当前位置的视图为空（当前不是布局管理器 子项的一部分），则滚动到位置，或者它不完全可见。
         if (viewAtPosition == null || layoutManager
             .isViewPartiallyVisible(viewAtPosition, false, true)) {
           recyclerView.post(() -> layoutManager.scrollToPosition(MainActivity.currentPosition));
@@ -93,17 +97,20 @@ public class GridFragment extends Fragment {
   /**
    * Prepares the shared element transition to the pager fragment, as well as the other transitions
    * that affect the flow.
+   * 准备共享元素转换到分页器片段，以及影响流的其他转换。
    */
   private void prepareTransitions() {
     setExitTransition(TransitionInflater.from(getContext())
         .inflateTransition(R.transition.grid_exit_transition));
 
     // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
+    // 使用setEnterSharedElementCallback在ImagePagerFragment中设置一个类似的映射。
     setExitSharedElementCallback(
         new SharedElementCallback() {
           @Override
           public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
             // Locate the ViewHolder for the clicked position.
+            // 找到点击位置的ViewHolder。
             RecyclerView.ViewHolder selectedViewHolder = recyclerView
                 .findViewHolderForAdapterPosition(MainActivity.currentPosition);
             if (selectedViewHolder == null || selectedViewHolder.itemView == null) {
@@ -111,6 +118,7 @@ public class GridFragment extends Fragment {
             }
 
             // Map the first shared element name to the child ImageView.
+            // 将第一个共享元素名称映射到子ImageView。
             sharedElements
                 .put(names.get(0), selectedViewHolder.itemView.findViewById(R.id.card_image));
           }

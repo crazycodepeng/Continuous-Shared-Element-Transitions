@@ -36,6 +36,7 @@ import liup.code.element.R;
 
 /**
  * A fragment for displaying an image.
+ * 用于显示图像的fragment。
  */
 public class ImageFragment extends Fragment {
 
@@ -60,9 +61,11 @@ public class ImageFragment extends Fragment {
 
     // Just like we do when binding views at the grid, we set the transition name to be the string
     // value of the image res.
+    // 就像我们在网格中绑定视图时一样，我们将转换名称设置为图像res的字符串值。
     view.findViewById(R.id.image).setTransitionName(String.valueOf(imageRes));
 
     // Load the image with Glide to prevent OOM error when the image drawables are very large.
+    // 使用Glide加载图像以防止图像可绘制非常大时的OOM错误。
     Glide.with(this)
         .load(imageRes)
         .listener(new RequestListener<Drawable>() {
@@ -72,6 +75,7 @@ public class ImageFragment extends Fragment {
             // The postponeEnterTransition is called on the parent ImagePagerFragment, so the
             // startPostponedEnterTransition() should also be called on it to get the transition
             // going in case of a failure.
+            // 在父ImagePagerFragment上调用postponeEnterTransition，因此还应该调用startPostponedEnterTransition（）以在发生故障时进行转换。
             getParentFragment().startPostponedEnterTransition();
             return false;
           }

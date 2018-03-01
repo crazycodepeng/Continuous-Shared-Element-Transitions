@@ -47,6 +47,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
 
   /**
    * A listener that is attached to all ViewHolders to handle image loading events and clicks.
+   *
+   * 一个连接到所有ViewHolders的侦听器，用于处理图像加载事件和点击。
    */
   private interface ViewHolderListener {
 
@@ -115,15 +117,17 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
      *
      * @param view the clicked {@link ImageView} (the shared element view will be re-mapped at the
      * GridFragment's SharedElementCallback)
-     * @param position the selected view position
+     * @param position the selected view position   选择view的position
      */
     @Override
     public void onItemClicked(View view, int position) {
       // Update the position.
+      // 更新位置
       MainActivity.currentPosition = position;
 
       // Exclude the clicked card from the exit transition (e.g. the card will disappear immediately
       // instead of fading out with the rest to prevent an overlapping animation of fade and move).
+      // 从退出转换中排除已点击的卡片（例如，卡片将立即消失，而不会与其余部分消失，以防止淡入淡出和移动的重叠动画）。
       ((TransitionSet) fragment.getExitTransition()).excludeTarget(view, true);
 
       ImageView transitioningView = view.findViewById(R.id.card_image);
@@ -162,16 +166,19 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
      *
      * The binding will load the image into the image view, as well as set its transition name for
      * later.
+     * 该绑定会将图像加载到图像视图中，并为其稍后设置其转换名称。
      */
     void onBind() {
       int adapterPosition = getAdapterPosition();
       setImage(adapterPosition);
       // Set the string value of the image resource as the unique transition name for the view.
+      // 将图像资源的字符串值设置为视图的唯一过渡名称。
       image.setTransitionName(String.valueOf(IMAGE_DRAWABLES[adapterPosition]));
     }
 
     void setImage(final int adapterPosition) {
       // Load the image with Glide to prevent OOM error when the image drawables are very large.
+      // 使用Glide加载图像以防止图像可绘制非常大时的OOM错误。
       requestManager
           .load(IMAGE_DRAWABLES[adapterPosition])
           .listener(new RequestListener<Drawable>() {
@@ -195,6 +202,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
     @Override
     public void onClick(View view) {
       // Let the listener start the ImagePagerFragment.
+      // 让侦听器启动ImagePagerFragment
       viewHolderListener.onItemClicked(view, getAdapterPosition());
     }
   }

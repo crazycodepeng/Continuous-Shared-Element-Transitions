@@ -22,6 +22,8 @@ import liup.code.element.R;
 
 /**
  * Holds the image resource references used by the grid and the pager fragments.
+ *
+ * 保存grid和fragments使用的图像资源引用。
  */
 abstract class ImageData {
 
